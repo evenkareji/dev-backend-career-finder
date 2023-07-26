@@ -1,5 +1,5 @@
 import React from "react";
-import LoginPage from "../components/loginPage";
+import LoginPage from "../components/login-page";
 import { useAuth } from "../context/auth";
 
 const index = () => {

@@ -4,7 +4,7 @@ import { Post } from "../types/post";
 import { auth, db } from "../firebase/firebase";
 import { collection, deleteDoc, doc, getDoc, setDoc } from "firebase/firestore";
 import { useRouter } from "next/router";
-import InputForm from "../components/input_form";
+import InputForm from "../components/input-form";
 import { useState } from "react";
 
 const itemEdit = () => {

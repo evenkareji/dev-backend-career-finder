@@ -1,4 +1,4 @@
-import { Timestamp } from "firebase-admin/firestore";
+// import { Timestamp } from "firebase-admin/firestore";
 import { Interview } from "./interview";
 
 export type Post = {
