@@ -1,8 +1,8 @@
 import React from "react";
 import { login, logout } from "../lib/auth";
-import { UseAuth } from "../context/auth";
+import { useAuth } from "../context/auth";
 const LoginPage = () => {
-  const { user } = UseAuth();
+  const { user } = useAuth();
   return (
     <>
       {!user && <button onClick={login}>ログイン</button>}

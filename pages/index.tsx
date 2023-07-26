@@ -1,9 +1,9 @@
 import React from "react";
 import LoginPage from "../components/loginPage";
-import { UseAuth } from "../context/auth";
+import { useAuth } from "../context/auth";
 
 const index = () => {
-  const { user } = UseAuth();
+  const { user } = useAuth();
 
   return (
     <>

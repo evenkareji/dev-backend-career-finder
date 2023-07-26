@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { UseAuth } from "../context/auth";
+import { useAuth } from "../context/auth";
 import { Post } from "../types/post";
 import { auth, db } from "../firebase/firebase";
 import { collection, deleteDoc, doc, getDoc, setDoc } from "firebase/firestore";
@@ -7,9 +7,9 @@ import { useRouter } from "next/router";
 import InputForm from "../components/input_form";
 import { useState } from "react";
 
-const item_edit = () => {
+const itemEdit = () => {
   const router = useRouter();
-  const [add, setAdd] = useState<any>([]);
+  const [add, setAdd] = useState<Array<number>>([]);
 
   const {
     register,
@@ -22,7 +22,7 @@ const item_edit = () => {
     setAdd([...add, add.length]);
   };
 
-  const addForms = add.map((index: any) => (
+  const addForms = add.map((index: number) => (
     <>
       <div key={index}>
         <div>
@@ -49,28 +49,28 @@ const item_edit = () => {
         </div>
         <div>
           <label htmlFor="">人数</label>
-          <input type="number" {...register(`head${index}`)} id="head" />
+          <input type="number" {...register(`headcount${index}`)} id="head" />
         </div>
         <div>
           <label htmlFor="">質問された内容など</label>
           <textarea
             autoComplete="off"
-            {...register(`body${index}`)}
+            {...register(`description${index}`)}
             id="body"
           ></textarea>
         </div>
       </div>
     </>
   ));
-  const { isLoading, fbUser } = UseAuth();
+  const { isLoading, fbUser } = useAuth();
   if (!fbUser) {
     if (!isLoading) {
       router.push("/login");
     }
     return null;
   }
-  const submit = (data: any) => {
-    const ref = doc(collection(db, "posts"));
+  const submit = (data: Post) => {
+    const ref = doc(collection(db, "posts_d"));
     console.log(fbUser);
     const post: Post = {
       id: ref.id,
@@ -85,8 +85,8 @@ const item_edit = () => {
             interviewFormat: data.format,
             interviewMethod: data.method,
             selectionResult: data.system,
-            headcount: data.head,
-            description: data.body,
+            headcount: data.headcount,
+            description: data.description,
           },
         ],
         result: data.result,
@@ -97,20 +97,21 @@ const item_edit = () => {
       updateAt: null,
     };
     add.forEach((i: any) => {
+      console.log(eval("data.format" + i));
       post.body.interview.push({
         index: i,
-        interviewFormat: data.format0,
-        interviewMethod: data.method0,
-        selectionResult: data.system0,
-        headcount: data.head0,
-        description: data.body0,
+        interviewFormat: eval("data.format" + i),
+        interviewMethod: eval("data.method" + i),
+        selectionResult: eval("data.system" + i),
+        headcount: eval("data.headcount" + i),
+        description: eval("data.description" + i),
       });
     });
 
     console.log(post);
     setDoc(ref, post).then(async () => {
       // await revalidate("/");
-      alert(`記事を "作成"しました`);
+      alert(`記事を作成しました`);
     });
   };
 
@@ -151,13 +152,13 @@ const item_edit = () => {
           </div>
           <div>
             <label htmlFor="">人数</label>
-            <input type="number" {...register("head")} id="head" />
+            <input type="number" {...register("headcount")} id="head" />
           </div>
           <div>
             <label htmlFor="">質問された内容など</label>
             <textarea
               autoComplete="off"
-              {...register("body")}
+              {...register("description")}
               id="body"
             ></textarea>
           </div>
@@ -182,4 +183,4 @@ const item_edit = () => {
   );
 };
 
-export default item_edit;
+export default itemEdit;
