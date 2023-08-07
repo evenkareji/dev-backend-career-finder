@@ -3,7 +3,8 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { Post } from "../types/post";
 import Image from "next/image";
-import Reaction from "./reaction";
+import ReactionList from "./addReaction";
+import CurrentReactionList from "./current-reaction-list";
 
 const PostItemCard = ({ post }: { post: Post }) => {
     //   const user = useUser(post.authorId);
@@ -20,23 +21,10 @@ const PostItemCard = ({ post }: { post: Post }) => {
                 {post.body.companyName}
         </h2>
         <p>{post.body.result}</p>
+        <p>{post.id}</p>
         <button onClick={reactionOpen}>+</button>
-        {reactionTab && <Reaction/>}
-        {/* {user && (
-          <div className="flex mt-4 items-center">
-            <Image
-              src={user?.avatarURL}
-              className="w-10 h-10 block rounded-full"
-              alt=""
-            />
-            <div className=" ml-5">
-              <p className=" truncate">{user.name}</p>
-              <p className=" text-slate-500 text-sm">
-                {format(post.createdAt, "yyyy/MM/dd")}
-              </p>
-            </div>
-          </div>
-        )} */}
+        <CurrentReactionList post={post.id} />
+        {reactionTab && <ReactionList  post={post.id} />}
       </div>
     </>
   );

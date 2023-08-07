@@ -92,7 +92,7 @@ const itemEdit = () => {
         result: data.result,
         impression: data.impression,
       },
-      likes: [],
+      reactions: [],
       createdAt: new Date(),
       updateAt: null,
     };

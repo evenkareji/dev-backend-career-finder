@@ -4,5 +4,6 @@ export type User = {
   nickname: string,
   profile: string,
   avatarURL: string,
-  uid:string
+  uid: string
+  reactions:Array<{post:string,reaction:string}>
 }

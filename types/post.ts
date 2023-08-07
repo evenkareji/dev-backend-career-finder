@@ -13,7 +13,7 @@ export type Post = {
     impression?: string;
     result: string;
   };
-  likes: Array<string | undefined | null>;
+  reactions: Array<string | undefined | null>;
   createdAt:any;
   updateAt: string | null;
 };
